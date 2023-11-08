@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Tail End</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>    
+    <!-- Add HTML content, SVG drawing area, ... -->
+    <h1>The Tail End</h1>
+    <div class="copywriting-container">
+        <p> 
+            Few of us stop to think about how we’re spending our time relative to the amount of time we have 
+            left to live. In a blog post titled 
+            <em><a href="https://waitbutwhy.com/2015/12/the-tail-end.html" target="_blank">The Tail End</a></em>, 
+            writer and speaker Tim Urban explores different methods of visualizing a human lifespan to help us 
+            push ourselves to prioritize and make time for the things that truly matter to us. Drawing 
+            inspiration from Tim Urban’s article, we hope this interactive visualization inspires you to be more 
+            intentional with your time.
+        </p>
+    </div>
+
+    <div id="vis1-container">
+        <h3>Part 1: Lifespan calendar</h3>
+        <div id="tooltip-heatmap"></div>
+        <div id="heatmap-container">
+            <div id="heatmap-menu-container">
+                <div id="dob-dropdown">
+                    <label for="dob-selector">Select date of birth: </label>
+                    <input type="date" id="dob-selector"></input>
+                </div>
+
+                <div id="gender-dropdown">
+                    <label for="gender-selector">Select gender: </label>
+                    <select id="gender-selector"></select>
+                </div>
+
+                <div id="country-dropdown">
+                    <label for="country-selector">Select country: </label>
+                    <select id="country-selector"></select>
+                </div>
+                    
+                <svg id=heatmap-legend-svg></svg>
+            </div>
+            <div class="copywriting-container">
+                <p id="heatmap-dynamic-caption"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="vis2-container">  
+        <h3>Part 2: </h3>
+        <div class="copywriting-container">
+            <p> 
+                What if you grew up in a different country? The environment that we grow up in has a large impact 
+                on our life expectancy. The life expectancy from part 1 is only based on the average situation for 
+                someone of your gender and in your country. Life is fragile - it’s important to remember that 
+                there are so many different socioeconomic factors that could shorten or lengthen the amount of 
+                time we have left to do the things that matter to us!
+            </p>
+        </div>
+        <div id="tooltip"></div>
+        <div class = "vis2-option-container">
+            <div class="year-dropdown">
+                Years: 
+                <select id="year-selector">
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+                    <option value="2003">2003</option>
+                    <option value="2004">2004</option>
+                    <option value="2005">2005</option>
+                    <option value="2006">2006</option>
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                </select>
+            </div>
+            <div class="regression-dropdown">
+                Regression line:
+                <select id="regression-selector">
+                    <option value="true">ON</option>
+                    <option value="false">OFF</option>
+                </select>
+            </div>
+        </div>
+        <div id="vis2-svg-container">
+            <div id="scatterPlot-container">
+                <div id="largeScatterPlot-container">
+
+                </div>
+                <div id="smallMultiple-container">
+                
+                </div>
+            </div>
+            <div id="map"></div>
+        </div>
+        <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1"> 
+            <defs> 
+                <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5"> 
+                    <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg==" x="0" y="0" width="5" height="5"></image> 
+                </pattern> 
+            </defs>
+        </svg>
+    </div>
+
+    <h3>Part 3: </h3>
+    <div class="copywriting-container">
+        <p> 
+            Rather than units of time, what if we represented life in terms of activities or events? Does that 
+            encourage us to be even more mindful of who we’re spending our time? If you read one book every 
+            month, how many more books can you read before your time is up? If you visit your relatives once 
+            every two years, how many more times will you get to see them, ever? In this visualization, we 
+            represent your life in terms of a relatively universal sporting event, the Olympics. Click the 
+            buttons below to step through the visualization!
+        </p>
+    </div>
+    <div id="vis3-container">
+        <span class="text" id="vis3-text"></span>
+        <br>
+        <button class="previous">Previous</button>
+        <button class="next">Next</button>
+        <div id="vis3"></div>
+    </div>
+    
+    <!-- D3 bundle -->
+    <script src="js/d3.v6.min.js"></script>
+    <script src="js/d3r.regression.js"></script>
+
+    <!-- TopoJson -->
+    <script src="js/topojson.js"></script>
+
+    <!-- Our JS code -->
+    <script src="js/transitionVis.js"></script>
+    <script src="js/geoMap.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/heatmap.js"></script>
+    <script src="js/scatterPlot.js"></script>
+    <script src="js/multiples.js"></script>
+</body>
+</html>
